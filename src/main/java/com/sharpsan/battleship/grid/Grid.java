@@ -2,6 +2,8 @@ package com.sharpsan.battleship.grid;
 
 import com.sharpsan.battleship.config.GridConfig;
 import com.sharpsan.battleship.models.Coordinates;
+import com.sharpsan.battleship.models.Fire;
+import com.sharpsan.battleship.ships.Ship;
 
 public class Grid {
 
@@ -60,13 +62,23 @@ public class Grid {
         }*/
     }
 
-    public void debug() {
+    // outputs all Squares' coordinates
+    public void debug_showBoardCoords() {
         for(Square squareRow[] : squares) {
             for(Square square : squareRow) {
                 System.out.println("coords: " + square.getCoordinates().getLatitude() + ", " + square.getCoordinates().getLongitude() + "; " + square.isFired());
             }
         }
     }
+
+    public void debug_placeTestShip(Ship ship, Square[] squares) {
+        int shipSquareIdIndex = 1;
+        for(Square square : squares) {
+            square.placeShipSquare(ship, shipSquareIdIndex);
+            shipSquareIdIndex++;
+        }
+    }
+
 
     // get status of square
     // return status
@@ -76,17 +88,26 @@ public class Grid {
         return squares[latitude][longitude];
     }
 
-    // fire at a square
-    // return status
-    public void fire(Coordinates coordinates) {
-        int latitude = coordinates.getArraySafeLatitude();
-        int longitude = coordinates.getArraySafeLongitude();
-        Square square = squares[latitude][longitude];
-        square.setFired(true);
+    public Square getSquare(int latitude, int longitude) {
+        Coordinates coordinates = new Coordinates(latitude, longitude);
+        return getSquare(coordinates);
     }
 
-    public void fire(Square square) {
-        fire(square.getCoordinates());
+    public Fire fire(Coordinates coordinates) {
+        Square square = getSquare(coordinates);
+        Fire fire = new Fire(square);
+        if(square.hasShip()) {
+            int shipSquareId = square.getShipSquareId();
+            Ship ship = square.getShip();
+            ship.hit(shipSquareId);
+            fire.setShip(ship);
+            fire.setShipSquareId(shipSquareId);
+            fire.setHit(true);
+            square.setFired(true);
+        } else {
+            fire.setHit(false);
+        }
+        return fire;
     }
 
 }
