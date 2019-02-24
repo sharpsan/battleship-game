@@ -6,7 +6,6 @@ public class Ship {
 
     private final ShipName name;
     private final int size;
-
     private boolean[] shipSquareIds;
 
     public Ship(ShipName name, int size) {
@@ -29,6 +28,16 @@ public class Ship {
         squareId = squareId - 1;
         if(isValidSquareId(squareId)) {
             shipSquareIds[squareId] = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean getHit(int squareId) {
+        squareId = squareId - 1;
+        boolean shipSquareIdHit = shipSquareIds[squareId];
+        if(shipSquareIdHit) {
             return true;
         } else {
             return false;

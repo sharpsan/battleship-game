@@ -3,6 +3,7 @@ package com.sharpsan.battleship;
 import com.sharpsan.battleship.grid.Grid;
 import com.sharpsan.battleship.models.Coordinates;
 import com.sharpsan.battleship.models.Fire;
+import com.sharpsan.battleship.models.Square;
 
 public class Engine {
 
@@ -14,7 +15,14 @@ public class Engine {
 
     public Fire fire(int latitude, int longitude) {
         Coordinates coordinates = new Coordinates(latitude, longitude);
-        Fire fire = grid.fire(coordinates);
+        Square square = getGrid().getSquare(coordinates);
+        Fire fire;
+        if(square.isFired()) {
+            fire = new Fire(square);
+            fire.setPreviouslyFired(true);
+        } else {
+            fire = grid.fire(coordinates);
+        }
         return fire;
     }
 

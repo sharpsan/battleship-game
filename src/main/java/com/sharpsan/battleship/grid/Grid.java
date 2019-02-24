@@ -3,6 +3,7 @@ package com.sharpsan.battleship.grid;
 import com.sharpsan.battleship.config.GridConfig;
 import com.sharpsan.battleship.models.Coordinates;
 import com.sharpsan.battleship.models.Fire;
+import com.sharpsan.battleship.models.Square;
 import com.sharpsan.battleship.ships.Ship;
 
 public class Grid {
@@ -62,15 +63,6 @@ public class Grid {
         }*/
     }
 
-    // outputs all Squares' coordinates
-    public void debug_showBoardCoords() {
-        for(Square squareRow[] : squares) {
-            for(Square square : squareRow) {
-                System.out.println("coords: " + square.getCoordinates().getLatitude() + ", " + square.getCoordinates().getLongitude() + "; " + square.isFired());
-            }
-        }
-    }
-
     public void debug_placeTestShip(Ship ship, Square[] squares) {
         int shipSquareIdIndex = 1;
         for(Square square : squares) {
@@ -93,8 +85,13 @@ public class Grid {
         return getSquare(coordinates);
     }
 
+    public Square[][] getSquares() {
+        return squares;
+    }
+
     public Fire fire(Coordinates coordinates) {
         Square square = getSquare(coordinates);
+        square.setFired(true);
         Fire fire = new Fire(square);
         if(square.hasShip()) {
             int shipSquareId = square.getShipSquareId();
@@ -103,7 +100,6 @@ public class Grid {
             fire.setShip(ship);
             fire.setShipSquareId(shipSquareId);
             fire.setHit(true);
-            square.setFired(true);
         } else {
             fire.setHit(false);
         }

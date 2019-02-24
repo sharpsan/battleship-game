@@ -1,6 +1,5 @@
-package com.sharpsan.battleship.grid;
+package com.sharpsan.battleship.models;
 
-import com.sharpsan.battleship.models.Coordinates;
 import com.sharpsan.battleship.ships.Ship;
 
 // returns information pertaining to a square
