@@ -7,6 +7,7 @@ public class Ship {
     private final ShipName name;
     private final int size;
     private boolean[] shipSquareIds;
+    private boolean isSunk;
 
     public Ship(ShipName name, int size) {
         this.name = name;
@@ -14,6 +15,8 @@ public class Ship {
 
         // initialize each square as false`
         shipSquareIds = new boolean[size];
+
+        isSunk = false;
     }
 
     public ShipName getName() {
@@ -28,6 +31,9 @@ public class Ship {
         squareId = squareId - 1;
         if(isValidSquareId(squareId)) {
             shipSquareIds[squareId] = true;
+            if(checkIfSunk()) {
+                this.isSunk = true;
+            }
             return true;
         } else {
             return false;
@@ -36,12 +42,17 @@ public class Ship {
 
     public boolean getHit(int squareId) {
         squareId = squareId - 1;
-        boolean shipSquareIdHit = shipSquareIds[squareId];
-        if(shipSquareIdHit) {
-            return true;
-        } else {
-            return false;
+        return shipSquareIds[squareId];
+    }
+
+    private boolean checkIfSunk() {
+        int hitCounter = 0;
+        for(boolean hit : shipSquareIds) {
+            if(hit) {
+                hitCounter++;
+            }
         }
+        return shipSquareIds.length == hitCounter;
     }
 
     public void debug() {
@@ -62,5 +73,13 @@ public class Ship {
         } else {
             return true;
         }
+    }
+
+    public boolean isSunk() {
+        return isSunk;
+    }
+
+    public void setSunk(boolean sunk) {
+        isSunk = sunk;
     }
 }

@@ -9,10 +9,12 @@ public class Fire {
     private int shipSquareId;
     private boolean isHit;
     private boolean isPreviouslyFired;
+    private boolean isSunk;
 
     public Fire(Square square) {
         this.square = square;
         this.setPreviouslyFired(false);
+        this.setSunk(false);
     }
 
     public Square getSquare() {
@@ -49,5 +51,13 @@ public class Fire {
 
     public void setPreviouslyFired(boolean previouslyFired) {
         isPreviouslyFired = previouslyFired;
+    }
+
+    public boolean isSunk() {
+        return isSunk;
+    }
+
+    public void setSunk(boolean sunk) {
+        isSunk = sunk;
     }
 }

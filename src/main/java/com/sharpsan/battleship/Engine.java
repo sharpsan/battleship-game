@@ -22,6 +22,9 @@ public class Engine {
             fire.setPreviouslyFired(true);
         } else {
             fire = grid.fire(coordinates);
+            if(square.getShip().isSunk()) {
+                fire.setSunk(true);
+            }
         }
         return fire;
     }

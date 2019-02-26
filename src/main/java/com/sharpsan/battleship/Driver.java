@@ -16,7 +16,7 @@ public class Driver {
         System.out.println("Loading game engine...\n");
         Engine engine = new Engine();
 
-        System.out.println("Loading user input scanner...");
+        System.out.println("Loading user input scanner...\n");
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Placing test ship on board...\n");
@@ -81,6 +81,9 @@ public class Driver {
         if(fire.isHit()) {
             System.out.println("ship name: " + fire.getSquare().getShip().getName().name());
             System.out.println("ship hit on ship square: " + fire.getShipSquareId());
+            if(fire.isSunk()) {
+                System.out.println("ship is sunk!");
+            }
         }
         System.out.println();
     }
@@ -90,7 +93,7 @@ public class Driver {
         int rowIndex = 1;
         int colIndex = 1;
         System.out.println("   1 2 3 4 5 6 7 8 9 10 ");
-        System.out.println("   --------------------");
+        System.out.println("  ---------------------");
         for(Square[] squareRow : squares) {
             System.out.print((rowIndex < 10) ? rowIndex + " " : rowIndex);
             System.out.print("|");
@@ -107,7 +110,7 @@ public class Driver {
             System.out.println();
             rowIndex++;
         }
-        System.out.println("   --------------------");
+        System.out.println("  ---------------------");
     }
 
     // outputs all Squares' status of Grid
