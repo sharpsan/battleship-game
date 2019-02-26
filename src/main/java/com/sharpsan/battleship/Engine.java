@@ -22,7 +22,7 @@ public class Engine {
             fire.setPreviouslyFired(true);
         } else {
             fire = grid.fire(coordinates);
-            if(square.getShip().isSunk()) {
+            if(square.getShip() != null && square.getShip().isSunk()) {
                 fire.setSunk(true);
             }
         }
