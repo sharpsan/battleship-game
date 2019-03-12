@@ -4,8 +4,6 @@ import com.sharpsan.battleship.grid.Grid;
 import com.sharpsan.battleship.models.Coordinates;
 import com.sharpsan.battleship.models.Square;
 import com.sharpsan.battleship.models.Fire;
-import com.sharpsan.battleship.ships.Battleship;
-import com.sharpsan.battleship.ships.Ship;
 
 import java.util.Scanner;
 
@@ -20,21 +18,9 @@ public class Driver {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Placing test ship on board...\n");
-        Ship battleship = new Battleship();
-        Square[] squares = new Square[battleship.getSize()];
-        squares[0] = engine.getGrid().getSquare(1,1);
-        squares[1] = engine.getGrid().getSquare(1,2);
-        squares[2] = engine.getGrid().getSquare(1,3);
-        squares[3] = engine.getGrid().getSquare(1,4);
-        engine.getGrid().debug_placeTestShip(battleship, squares);
+        engine.randomlyDeployFleet();
 
         requestMoveInput(engine, scanner);
-
-//        fire(engine, 1, 1);
-//        fire(engine, 1,2);
-//        fire(engine, 2,2);
-//        System.out.println("\nNew board result:");
-//        displayBoard(engine.getGrid());
     }
 
     private static void requestMoveInput(Engine engine, Scanner scanner) {
